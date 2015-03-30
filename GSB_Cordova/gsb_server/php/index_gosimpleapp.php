@@ -1,7 +1,6 @@
 <?php
 
 //$dsn = "mysql://[user[:pass]@]host[:port]/db/";
-//$dsn ="mysql://gosimpleqcm:56THNdNHHDhg@gosimpleqcm.mysql.db/gosimpleqcm/";
 $dsn = "mysql://gosimplemod1:56TttNHHDhg@gosimplemod1.mysql.db/gosimplemod1/";
 $clients = [];
 
