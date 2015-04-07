@@ -181,8 +181,59 @@ function creerLesLignesDuDropDown() {
     }
     console.log("Fin CreerLesLignes");
     $("#dropDownMoisItemList").html(contentDropDown);
+    selectionnerMois(0);
 }
 function buildDropDownLine(indiceMois) {
-    return '<li role="presentation"><a role="menuitem" tabindex="'+indiceMois+'" href="javascript:changeDropDownTitle('+indiceMois+');">'+formaterDate(mois[indiceMois])+'</li>';
+    return '<li id="'+buildIdForLigneFrais(indiceMois)+'" role="presentation"><a role="menuitem" tabindex="'+indiceMois+'" href="javascript:changeDropDownTitle('+indiceMois+');">'+formaterDate(mois[indiceMois])+'</li>';
 }
 
+function buildIdForLigneFrais(i){
+    
+    return "ligne_de_frais_du_dropDown" + i;
+}
+ 
+ function selectionnerMois(pIndiceMois){
+    for(var indiceMois=0 ; indiceMois < mois.length ; indiceMois++){
+        $("#"+buildIdForLigneFrais(indiceMois)).removeClass("active");
+    }
+    $("#"+buildIdForLigneFrais(pIndiceMois)).addClass("active");
+    changeDropDownTitle(pIndiceMois);
+ }
+ 
+ function lireLigneHorsFraisBDD(callBack, indiceMois){
+    var url = "http://stephanegoyet.fr/gsb/gsb_server/php/index_gosimpleapp.php/LigneFraisHorsForfait/idVisiteur/" + idUtilisateur+"/mois/"+ mois[indiceMois] +"order=desc";
+    var doneFunction= function(tableauDesFrais){
+        var contentDropDown = "";
+        if ($.isArray(tableauDesFrais) && tableauDesFrais.length > 0) {
+            for (var i = 0; i < tableauDesFrais.length && i<10; i++) {
+                moisSelectionne = tableauDesFrais[i].mois;
+                // console.log("Mois sélectionné : " + moisSelectionne + " résultat du test : " + $.inArray(moisSelectionne, mois));
+                if ($.inArray(moisSelectionne, mois) === -1) {
+                    mois.push(moisSelectionne);
+                }
+            }
+        }
+        appelAjax(doneFunction , url);
+ }
+ 
+ function ecrireLigneHorsFrais(){
+     
+ }
+ 
+ function appelAjax(doneFunction, url){
+    console.log("url : " + url);    
+    $.ajax({
+        dataType: "json",
+        url: url,
+        context: document.body,
+        statusCode: {
+            404: function() {
+                alert("page not found");
+            }
+        },
+        fail: function() {
+            alert("error");
+        },
+        done:doneFunction
+    });
+}
