@@ -1,7 +1,7 @@
 <?php
 
 //$dsn = "mysql://[user[:pass]@]host[:port]/db/";
-$dsn = "mysql://userGsb:secret@localhost/gsb_valide/";
+$dsn = "mysql://dev:dev@localhost/gsb_web/";
 $clients = [];
 
 /**

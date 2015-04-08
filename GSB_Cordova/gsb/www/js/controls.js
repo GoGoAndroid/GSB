@@ -1,16 +1,25 @@
 //login
 //pass
 
-var loginUtilisateur;
+var loginUtilisateur = "lvillachane";
+var password = "jux7g";
 var idUtilisateur;
 var moisEnLettres = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Décembre"];
 var mois = [];
+
+//var phpGet = "http://localhost/GSB_Cordova/index_localhost.php";
+//var phpDelete = "http://localhost/GSB_Cordova/delete_localhost.php";
+var phpGet = "http://stephanegoyet.fr/gsb/gsb_server/php/index_gosimpleapp.php";
 $("#container").hide();
 
+
 $("#button_login").click(function() {
+    
     console.log("Login");
     videDropDownMois();
     videFraisHorsForfait();
+    loginUtilisateur=$('#login').val();
+    password =$('#pass').val();
     login();
 });
 
@@ -26,7 +35,8 @@ function videFraisHorsForfait(){
 function login() {
     console.log("Login");
     loginUtilisateur = $("#login").val();
-    var url = "http://stephanegoyet.fr/gsb/gsb_server/php/index_gosimpleapp.php/Visiteur/login/" + loginUtilisateur + "/mdp/" + $("#pass").val();
+    //var url = "http://stephanegoyet.fr/gsb/gsb_server/php/index_gosimpleapp.php/Visiteur/login/" + loginUtilisateur + "/mdp/" + $("#pass").val();
+    var url = phpGet+"/Visiteur/login/"+loginUtilisateur+"/mdp/" + password;
     console.log(url);
     $.ajax({
         dataType: "json",
@@ -74,7 +84,7 @@ function initialisationDuDropDown() {
 function getMoisAvecFraisPourLeVisiteur(callBack) {
     // utilisateur ( login)
     //select distinct(mois) from fichefrais where idVisiteur = idUtilisateur 
-    var url = "http://stephanegoyet.fr/gsb/gsb_server/php/index_gosimpleapp.php/fichefrais/idVisiteur/" + idUtilisateur+"?by=mois&order=desc";
+    var url = phpGet+"/fichefrais/idVisiteur/" + idUtilisateur+"?by=mois&order=desc";
     console.log("url : " + url);    
     $.ajax({
         dataType: "json",
@@ -133,7 +143,7 @@ function changeDropDownTitle(indiceMois) {
 
 
 function getMoisAvecLigneHorsFrais() {
-var url = "http://stephanegoyet.fr/gsb/gsb_server/php/index_gosimpleapp.php/LigneFraisHorsForfait/idVisiteur/" + idUtilisateur+"?by=mois&order=desc";
+var url = phpGet+"/LigneFraisHorsForfait/idVisiteur/" + idUtilisateur+"?by=mois&order=desc";
     console.log("url : " + url);    
     $.ajax({
         dataType: "json",
@@ -198,30 +208,92 @@ function buildIdForLigneFrais(i){
     }
     $("#"+buildIdForLigneFrais(pIndiceMois)).addClass("active");
     changeDropDownTitle(pIndiceMois);
+    lireLigneHorsFraisBDD(ecrireLigneHorsFrais,pIndiceMois);
  }
  
  function lireLigneHorsFraisBDD(callBack, indiceMois){
-    var url = "http://stephanegoyet.fr/gsb/gsb_server/php/index_gosimpleapp.php/LigneFraisHorsForfait/idVisiteur/" + idUtilisateur+"/mois/"+ mois[indiceMois] +"order=desc";
-    var doneFunction= function(tableauDesFrais){
+    console.log("lireLigneHorsFraisBDD :");
+    
+     var doneFunction= function(tableauDesFrais){
         var contentDropDown = "";
         if ($.isArray(tableauDesFrais) && tableauDesFrais.length > 0) {
-            for (var i = 0; i < tableauDesFrais.length && i<10; i++) {
-                moisSelectionne = tableauDesFrais[i].mois;
-                // console.log("Mois sélectionné : " + moisSelectionne + " résultat du test : " + $.inArray(moisSelectionne, mois));
-                if ($.inArray(moisSelectionne, mois) === -1) {
-                    mois.push(moisSelectionne);
-                }
+            console.log("Reception des lignes de frais json");
+            for (var i = 0; i < tableauDesFrais.length ; i++) {
+                ecrireLigneHorsFrais(new LigneHorsFrais(tableauDesFrais[i]));
             }
         }
-        appelAjax(doneFunction , url);
+        else {
+            console.log("Pas de ligne");
+        }
+     };
+    console.log("appelAjaxForGet :");
+    appelAjaxForGet(doneFunction ,idUtilisateur,mois[indiceMois], "date" , "desc","LigneFraisHorsForfait");
+    console.log("ApresappelAjaxForGet :");
  }
  
- function ecrireLigneHorsFrais(){
-     
+ function ecrireLigneHorsFrais(uneLigneHorsFrais){
+     console.log("date : " + uneLigneHorsFrais.date);
+     $("#fraisHorsForfait")
+    .append($('<tr onclick=selectionLigneHorsForfait('+
+        '"'+uneLigneHorsFrais.id+'",'+
+        '"'+uneLigneHorsFrais.date+'",'+
+        '"'+uneLigneHorsFrais.montant+'")>')
+    .append($('<td>')
+        .text(uneLigneHorsFrais.date)
+        )
+     .append($('<td>')
+        .text(uneLigneHorsFrais.libelle)
+        )
+     .append($('<td>')
+        .text(uneLigneHorsFrais.montant)
+        )
+     .append("<td  class='text-right'><"
+            + "button id = 'btnRemoveElementHorsForfaitId_"
+            + uneLigneHorsFrais.id + "' class ='btn btn-danger'"
+            + "type='button'><span class='glyphicon glyphicon-remove'"
+            + " aria-hidden='true' onclick = 'removeElementHorsFrais(" + uneLigneHorsFrais.id + ");'"
+            + "></span></button></td>")
+        );
+    console.log("fin");    
  }
  
- function appelAjax(doneFunction, url){
-    console.log("url : " + url);    
+ function removeElementHorsFrais(idRow) {
+     console.log("RemoveElementHorsFrais : "+idRow);
+     appelAjaxForDelete("LigneFraisHorsForfait", idRow, suppressionLigneDuTableauHorsFrais);
+ }
+ 
+ function suppressionLigneDuTableauHorsFrais(data) {
+     console.log("data : " + data);
+ }
+ 
+ function appelAjaxForDelete(tableName, idRow, callBack){
+    var url = phpDelete+"?"+
+    "id="+idRow+"&tableName="+tableName;
+    console.log("Appel ajax : url : " + url); 
+    $.ajax({
+        dataType: "json",
+        url: url,
+        type: 'GET',
+        context: document.body,
+        statusCode: {
+            404: function() {
+                alert("page not found");
+            }
+        },
+        fail: function() {
+            alert("error");
+        }
+    })
+    .done(function(data) {
+        console.log("Done");
+        callBack(data);
+        });
+ }
+ 
+ function appelAjaxForGet(doneFunction,userId, nomMois, orderBy, order, table){
+    var url = phpGet+"/"+
+    table +"/idVisiteur/" + userId +"/mois/"+ nomMois +"?by="+orderBy+"&order="+order;
+    console.log("Appel ajax : url : " + url); 
     $.ajax({
         dataType: "json",
         url: url,
@@ -233,7 +305,10 @@ function buildIdForLigneFrais(i){
         },
         fail: function() {
             alert("error");
-        },
-        done:doneFunction
-    });
-}
+        }
+    })
+    .done(function(data) {
+        console.log("Done");
+        doneFunction(data);
+        });
+    }

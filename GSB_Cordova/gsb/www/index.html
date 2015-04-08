@@ -23,8 +23,8 @@
 
       <form  class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input id ="login" type="text" class="form-control" placeholder="Login">
-          <input id="pass" type="text" class="form-control" placeholder="Pass">
+            <input id ="login" type="text" class="form-control" placeholder="Login" value="lvillachane">
+          <input id="pass" type="text" class="form-control" placeholder="Pass" value="jux7g">
       </div>
       <button type="button" id="button_login"  class="btn btn-default">Go</button>
   </form>
@@ -83,7 +83,27 @@
 
 
        </div>
-        <div class="panel panel-default">
+               <div class="panel-body" id="formulaireMiseAJourElementHorsForfait">
+        <div class="input-group" >
+            <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Date</span>
+            <input  type="date" class="form-control" placeholder="00.0" aria-describedby="basic-addon1">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+        </div>
+        <div class="input-group" >
+            <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Libellé</span>
+            <input  type="text" class="form-control" placeholder="Libellé" aria-describedby="basic-addon1">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></span>
+        </div>
+        <div class="input-group" >
+            <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Montant</span>
+            <input  type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
+        </div>
+        <div class="pull-right">
+
+        <button class="btn btn-success" style="margin-top:1em;" type="button"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button></div>
+        </div>
+        <div class="panel panel-default" id="panelForTable">
                   <div class="panel-body">
         <table class="table table-hover"  style="margin-top:1em;" id="fraisHorsForfait">
       <thead>
@@ -109,26 +129,7 @@
     </table>
 </div>
 </div>
-       <div class="panel-body">
-        <div class="input-group" >
-            <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Date</span>
-            <input  type="date" class="form-control" placeholder="00.0" aria-describedby="basic-addon1">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-        </div>
-        <div class="input-group" >
-            <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Libellé</span>
-            <input  type="text" class="form-control" placeholder="Libellé" aria-describedby="basic-addon1">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></span>
-        </div>
-        <div class="input-group" >
-            <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Montant</span>
-            <input  type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
-        </div>
-        <div class="pull-right">
 
-        <button class="btn btn-success" style="margin-top:1em;" type="button"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span></button></div>
-        </div>
 
     </div>
 
@@ -142,9 +143,10 @@ app.initialize();
 </script>
 <script src="js/jquery.min.js"></script>
 
-
+<script src="js/model/ligneHorsFrais.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/controls.js"></script>
+
 
 </body>
 </html>
