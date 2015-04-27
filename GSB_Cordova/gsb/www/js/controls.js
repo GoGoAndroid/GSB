@@ -77,8 +77,7 @@ function utilisateurConnecte(tableauDesVisiteurs) {
 function initialisationDuDropDown() {
     mois = [];
     getMoisAvecFraisPourLeVisiteur(getMoisAvecLigneHorsFrais);
-    //getMoisAvecLigneHorsFrais(ordonnerMois);
-    //ordonnerMois(creerLesLignesDuDropDown);
+ 
 }
 
 function getMoisAvecFraisPourLeVisiteur(callBack) {
@@ -103,7 +102,6 @@ function getMoisAvecFraisPourLeVisiteur(callBack) {
         if ($.isArray(tableauDesFrais) && tableauDesFrais.length > 0) {
             for (var i = 0; i < tableauDesFrais.length && i<10; i++) {
                 moisSelectionne = tableauDesFrais[i].mois;
-                // console.log("Mois sélectionné : " + moisSelectionne + " résultat du test : " + $.inArray(moisSelectionne, mois));
                 if ($.inArray(moisSelectionne, mois) === -1) {
                     mois.push(moisSelectionne);
                 }
@@ -135,9 +133,9 @@ function formaterDate(unMoisSelectionne) {
     return (ceMoisEnLettres+" "+annee);
 }
 function changeDropDownTitle(indiceMois) {
-    //mois[indiceMois];// 201301
-    
     $('#dropdownMenu3').html(formaterDate(mois[indiceMois]));
+    
+    
 }
 
 
@@ -162,7 +160,6 @@ var url = phpGet+"/LigneFraisHorsForfait/idVisiteur/" + idUtilisateur+"?by=mois&
         if ($.isArray(tableauDesFrais) && tableauDesFrais.length > 0) {
             for (var i = 0; i < tableauDesFrais.length && i<10; i++) {
                 moisSelectionne = tableauDesFrais[i].mois;
-                // console.log("Mois sélectionné : " + moisSelectionne + " résultat du test : " + $.inArray(moisSelectionne, mois));
                 if ($.inArray(moisSelectionne, mois) === -1) {
                     mois.push(moisSelectionne);
                 }
@@ -194,7 +191,10 @@ function creerLesLignesDuDropDown() {
     selectionnerMois(0);
 }
 function buildDropDownLine(indiceMois) {
-    return '<li id="'+buildIdForLigneFrais(indiceMois)+'" role="presentation"><a role="menuitem" tabindex="'+indiceMois+'" href="javascript:changeDropDownTitle('+indiceMois+');">'+formaterDate(mois[indiceMois])+'</li>';
+    return '<li id="'+buildIdForLigneFrais(indiceMois)+
+            '" role="presentation"><a role="menuitem" tabindex="'+
+            indiceMois+'" href="javascript:selectionnerMois('+indiceMois+');">'+
+            formaterDate(mois[indiceMois])+'</li>';
 }
 
 function buildIdForLigneFrais(i){
@@ -207,7 +207,9 @@ function buildIdForLigneFrais(i){
         $("#"+buildIdForLigneFrais(indiceMois)).removeClass("active");
     }
     $("#"+buildIdForLigneFrais(pIndiceMois)).addClass("active");
+       console.log("selectionnerMois change title "+mois[pIndiceMois]);
     changeDropDownTitle(pIndiceMois);
+           console.log("selectionnerMois lireLigneHorsFraisBDD "+mois[pIndiceMois]);
     lireLigneHorsFraisBDD(ecrireLigneHorsFrais,pIndiceMois);
  }
  
@@ -215,24 +217,26 @@ function buildIdForLigneFrais(i){
     console.log("lireLigneHorsFraisBDD :");
     
      var doneFunction= function(tableauDesFrais){
+         
+         $("#fraisHorsForfait").html("");
         var contentDropDown = "";
         if ($.isArray(tableauDesFrais) && tableauDesFrais.length > 0) {
-            console.log("Reception des lignes de frais json");
+            console.log("LigneFraisHorsForfait Reception des lignes de frais json");
             for (var i = 0; i < tableauDesFrais.length ; i++) {
                 ecrireLigneHorsFrais(new LigneHorsFrais(tableauDesFrais[i]));
             }
         }
         else {
-            console.log("Pas de ligne");
+            console.log(" lireLigneHorsFraisBDD Pas de ligne");
         }
      };
-    console.log("appelAjaxForGet :");
+    console.log("LigneFraisHorsForfait appelAjaxForGet : ");
     appelAjaxForGet(doneFunction ,idUtilisateur,mois[indiceMois], "date" , "desc","LigneFraisHorsForfait");
-    console.log("ApresappelAjaxForGet :");
+    console.log("lireLigneHorsFraisBDD ApresappelAjaxForGet :");
  }
  
  function ecrireLigneHorsFrais(uneLigneHorsFrais){
-     console.log("date : " + uneLigneHorsFrais.date);
+     console.log("LigneFraisHorsForfait date : " + uneLigneHorsFrais.date);
      $("#fraisHorsForfait")
     .append($('<tr onclick=selectionLigneHorsForfait('+
         '"'+uneLigneHorsFrais.id+'",'+
@@ -293,7 +297,7 @@ function buildIdForLigneFrais(i){
  function appelAjaxForGet(doneFunction,userId, nomMois, orderBy, order, table){
     var url = phpGet+"/"+
     table +"/idVisiteur/" + userId +"/mois/"+ nomMois +"?by="+orderBy+"&order="+order;
-    console.log("Appel ajax : url : " + url); 
+    console.log(table + " Appel ajax : url : " + url); 
     $.ajax({
         dataType: "json",
         url: url,
@@ -308,7 +312,18 @@ function buildIdForLigneFrais(i){
         }
     })
     .done(function(data) {
-        console.log("Done");
-        doneFunction(data);
+        console.log(table+" Done > callback");
+        var filtered_data=[];
+         if ($.isArray(data) && data.length > 0) {
+            console.log("LigneFraisHorsForfait filtre des lignes de frais json");
+            for (var i = 0; i < data.length ; i++) {
+                if (data[i].mois==nomMois){
+                             console.log("LigneFraisHorsForfait 1 mois ok");
+                    filtered_data.push(data[i]);
+                }
+            }
+        }
+        
+        doneFunction(filtered_data);
         });
     }
