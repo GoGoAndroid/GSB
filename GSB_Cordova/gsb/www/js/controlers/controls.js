@@ -209,15 +209,19 @@ function buildIdForLigneFrais(i){
     $("#"+buildIdForLigneFrais(pIndiceMois)).addClass("active");
        console.log("selectionnerMois change title "+mois[pIndiceMois]);
     changeDropDownTitle(pIndiceMois);
-           console.log("selectionnerMois lireLigneHorsFraisBDD "+mois[pIndiceMois]);
+    
+    getFraisForfait(idUtilisateur,mois[pIndiceMois]);
+    
+    console.log("selectionnerMois lireLigneHorsFraisBDD "+mois[pIndiceMois]);
     lireLigneHorsFraisBDD(ecrireLigneHorsFrais,pIndiceMois);
+    
  }
  
  function lireLigneHorsFraisBDD(callBack, indiceMois){
     console.log("lireLigneHorsFraisBDD :");
     
      var doneFunction= function(tableauDesFrais){
-         
+         lignesHorsForfait=tableauDesFrais;
          $("#fraisHorsForfait").html("");
         var contentDropDown = "";
         if ($.isArray(tableauDesFrais) && tableauDesFrais.length > 0) {
@@ -239,9 +243,7 @@ function buildIdForLigneFrais(i){
      console.log("LigneFraisHorsForfait date : " + uneLigneHorsFrais.date);
      $("#fraisHorsForfait")
     .append($('<tr onclick=selectionLigneHorsForfait('+
-        '"'+uneLigneHorsFrais.id+'",'+
-        '"'+uneLigneHorsFrais.date+'",'+
-        '"'+uneLigneHorsFrais.montant+'")>')
+        '"'+uneLigneHorsFrais.id+'")>')
     .append($('<td>')
         .text(uneLigneHorsFrais.date)
         )
@@ -274,6 +276,7 @@ function buildIdForLigneFrais(i){
       console.log("selectionLigneHosrForfait : " + id);
       //lignesHorsForfait
       for (var i = 0; i < lignesHorsForfait.length ; i++) {
+            console.log("check ligne  : " + i);
                 if (lignesHorsForfait[i].id==id){
                      console.log("selectionLigneHorsForfait : found ligne");
                     //id="date_element_hors_forfait"
@@ -290,60 +293,4 @@ function buildIdForLigneFrais(i){
      return mois.substring(0,4)+"-"+mois.substring(4,6)+"-"+"01";
      
  }
- function appelAjaxForDelete(tableName, idRow, callBack){
-    var url = phpDelete+"?"+
-    "id="+idRow+"&tableName="+tableName;
-    console.log("Appel ajax : url : " + url); 
-    $.ajax({
-        dataType: "json",
-        url: url,
-        type: 'GET',
-        context: document.body,
-        statusCode: {
-            404: function() {
-                alert("page not found");
-            }
-        },
-        fail: function() {
-            alert("error");
-        }
-    })
-    .done(function(data) {
-        console.log("Done");
-        callBack(data);
-        });
- }
- 
- function appelAjaxForGet(doneFunction,userId, nomMois, orderBy, order, table){
-    var url = phpGet+"/"+
-    table +"/idVisiteur/" + userId +"/mois/"+ nomMois +"?by="+orderBy+"&order="+order;
-    console.log(table + " Appel ajax : url : " + url); 
-    $.ajax({
-        dataType: "json",
-        url: url,
-        context: document.body,
-        statusCode: {
-            404: function() {
-                alert("page not found");
-            }
-        },
-        fail: function() {
-            alert("error");
-        }
-    })
-    .done(function(data) {
-        console.log(table+" Done > callback");
-         lignesHorsForfait =[];
-         if ($.isArray(data) && data.length > 0) {
-            console.log("LigneFraisHorsForfait filtre des lignes de frais json");
-            for (var i = 0; i < data.length ; i++) {
-                if (data[i].mois==nomMois){
-                             console.log("LigneFraisHorsForfait 1 mois ok");
-                    lignesHorsForfait.push(data[i]);
-                }
-            }
-        }
-        
-        doneFunction(lignesHorsForfait);
-        });
-    }
+
