@@ -6,7 +6,7 @@ var password = "jux7g";
 var idUtilisateur;
 var moisEnLettres = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Décembre"];
 var mois = [];
-
+var lignesHorsForfait = [];
 //var phpGet = "http://localhost/GSB_Cordova/index_localhost.php";
 //var phpDelete = "http://localhost/GSB_Cordova/delete_localhost.php";
 var phpGet = "http://stephanegoyet.fr/gsb/gsb_server/php/index_gosimpleapp.php";
@@ -270,6 +270,26 @@ function buildIdForLigneFrais(i){
      console.log("data : " + data);
  }
  
+ function selectionLigneHorsForfait(id){
+      console.log("selectionLigneHosrForfait : " + id);
+      //lignesHorsForfait
+      for (var i = 0; i < lignesHorsForfait.length ; i++) {
+                if (lignesHorsForfait[i].id==id){
+                     console.log("selectionLigneHorsForfait : found ligne");
+                    //id="date_element_hors_forfait"
+                    
+                    $("#date_element_hors_forfait").val(format_date_for_saisie(lignesHorsForfait[i].mois));
+                    $("#libelle_element_hors_forfait").val(lignesHorsForfait[i].libelle);
+                    $("#montant_element_hors_forfait").val(lignesHorsForfait[i].montant);
+                }
+            }
+      
+ }
+ function format_date_for_saisie(mois){
+     //The specified value '201501' does not conform to the required format, 'yyyy-MM-dd'.
+     return mois.substring(0,4)+"-"+mois.substring(4,6)+"-"+"01";
+     
+ }
  function appelAjaxForDelete(tableName, idRow, callBack){
     var url = phpDelete+"?"+
     "id="+idRow+"&tableName="+tableName;
@@ -313,17 +333,17 @@ function buildIdForLigneFrais(i){
     })
     .done(function(data) {
         console.log(table+" Done > callback");
-        var filtered_data=[];
+         lignesHorsForfait =[];
          if ($.isArray(data) && data.length > 0) {
             console.log("LigneFraisHorsForfait filtre des lignes de frais json");
             for (var i = 0; i < data.length ; i++) {
                 if (data[i].mois==nomMois){
                              console.log("LigneFraisHorsForfait 1 mois ok");
-                    filtered_data.push(data[i]);
+                    lignesHorsForfait.push(data[i]);
                 }
             }
         }
         
-        doneFunction(filtered_data);
+        doneFunction(lignesHorsForfait);
         });
     }
