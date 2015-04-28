@@ -242,7 +242,7 @@ function buildIdForLigneFrais(i){
  function ecrireLigneHorsFrais(uneLigneHorsFrais){
      console.log("LigneFraisHorsForfait date : " + uneLigneHorsFrais.date);
      $("#fraisHorsForfait")
-    .append($('<tr onclick=selectionLigneHorsForfait('+
+    .append($('<tr id="LigneHorsFrais_'+uneLigneHorsFrais.id + '" onclick=selectionLigneHorsForfait('+
         '"'+uneLigneHorsFrais.id+'")>')
     .append($('<td>')
         .text(uneLigneHorsFrais.date)
@@ -258,18 +258,20 @@ function buildIdForLigneFrais(i){
             + uneLigneHorsFrais.id + "' class ='btn btn-danger'"
             + "type='button'><span class='glyphicon glyphicon-remove'"
             + " aria-hidden='true' onclick = 'removeElementHorsFrais(" + uneLigneHorsFrais.id + ");'"
-            + "></span></button></td>")
+            + "></span></button></td></tr>")
         );
     console.log("fin");    
  }
  
  function removeElementHorsFrais(idRow) {
-     console.log("RemoveElementHorsFrais : "+idRow);
+     console.log("Delete removeElementHorsFrais : "+idRow);
      appelAjaxForDelete("LigneFraisHorsForfait", idRow, suppressionLigneDuTableauHorsFrais);
  }
  
  function suppressionLigneDuTableauHorsFrais(data) {
-     console.log("data : " + data);
+     console.log("Delete data : " + data);
+     var idLigneHorsForfait = data;
+     $('#LigneHorsFrais_'+idLigneHorsForfait).html("");
  }
  
  function selectionLigneHorsForfait(id){

@@ -3,31 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var phpDelete = "http://stephanegoyet.fr/gsb/gsb_server/php/delete_gosimpleapp.php";
 
- function appelAjaxForDelete(tableName, idRow, callBack){
-    var url = phpDelete+"?"+
+function appelAjaxForUpdate(tableName, idRow, callBack, data){
+    var url = phpGet
     
-    "id="+idRow+"&tableName="+tableName;
+    +"/"+ table + "/" + idRow; 
+    console.log(table + " Appel ajax : url : " + url); 
     
-    console.log("Delete appel ajax : url : " + url); 
+    console.log("Update appel ajax : url : " + url); 
     $.ajax({
         dataType: "json",
         url: url,
-        type: 'GET',
+        type: 'PUT',
         context: document.body,
+        data : data,
         statusCode: {
             404: function() {
-                alert("Delete page not found");
+                alert("Update page not found");
             }
         },
         fail: function() {
-            alert("Delete error");
+            alert("Update error");
         }
     })
     .done(function(data) {
-        console.log("Delete done : "+ idRow);
+        console.log("Update done : "+ idRow);
         callBack(idRow);
         });
  }
- 
