@@ -54,41 +54,55 @@
       </ul>
     </div>
 
+           <form class="form-inline">
+            <div id="fraisHorsForfait" class="form-group">
+            <label  style="width:15em;" id="basic-addon1" >Forfait étape</label>
+            <input  style="width:5em;" type="number" id="exampleInputName2" placeholder="00.0"> <br/>
+            <label style="width:15em;"> Frais kilométriques </label>
+            <input  style="width:5em;" type="number" placeholder="00.0" ><br/>
+            <label style="width:15em;"> Nuitée hotel </label>
+            <input  style="width:5em;" type="number" placeholder="00.0" ><br/>
+            <label style="width:15em;"> Repas restaurant </label>
+            <input  style="width:5em;" type="number" placeholder="00.0" >
+            </div>
+        </form>
 
        </div>
        <div id="labels_forfait" class="panel-body">
-        <div class="input-group">
-            <span class="input-group-addon " id="basic-addon1" style="width: 15em; text-align: left;">Forfait étape</span>
-            <input type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
+        <div class="row">
+            <div class="col-md-4"><span class="input-group-addon " id="basic-addon1" style="width: 15em; text-align: left;">Forfait étape</span></div>
+            <div class="col-md-4"><input type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1"></div>
+            <div class="col-md-4"><span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span></div>
         </div>
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Frais kilométriques</span>
-            <input type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
+        <div class="row">
+            <div class="col-md-4"><span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Frais kilométriques</span></div>
+            <div class="col-md-4"><input type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1"></div>
+            <div class="col-md-4"><span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span></div>
         </div>
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Nuitée hotel</span>
-            <input type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
+        <div class="row">
+            <div class="col-md-4"><span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Nuitée hotel</span></div>
+            <div class="col-md-4"><input type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1"></div>
+            <div class="col-md-4"><span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span></div>
         </div>
-        <div class="input-group" >
-            <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Repas restaurant</span>
-            <input  type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span>
+        <div class="row" >
+            <div class="col-md-4"><span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Repas restaurant</span></div>
+            <div class="col-md-4"><input  type="number" class="form-control" placeholder="00.0" aria-describedby="basic-addon1"></div>
+            <div class="col-md-4"><span class="input-group-addon"><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span></div>
         </div>
     </div>
-    <div class="panel panel-default">
+    <!--<div class="panel panel-default"> 
        <div class="panel-heading"><h3>Elements hors forfraits  </h3>  
 
 
        </div>
                <div class="panel-body" id="formulaireMiseAJourElementHorsForfait">
         <div class="input-group" >
+    -->
+      <div id="formulaireMiseAJourElementHorsForfait">
             <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Date</span>
             <input id="date_element_hors_forfait" type="date" class="form-control" placeholder="00.0" aria-describedby="basic-addon1">
             <span class="input-group-addon"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-        </div>
+       </div>
         <div class="input-group" >
             <span class="input-group-addon" id="basic-addon1" style="width: 15em;text-align: left;">Libellé</span>
             <input id="libelle_element_hors_forfait" type="text" class="form-control" placeholder="Libellé" aria-describedby="basic-addon1">
@@ -133,9 +147,7 @@
 
     </div>
 
-</div>
 
-</div>
 <!--<script type="text/javascript" src="js/cordova.js"></script>-->
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript">

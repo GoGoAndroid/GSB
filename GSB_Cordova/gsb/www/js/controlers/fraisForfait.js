@@ -12,12 +12,14 @@ TABLE `LigneFraisForfait` (
   `quantite` int(11) DEFAULT NULL,
   
  */
+var templateForfait = " <label  style=\"width:15em;\" id=\"basic-addon1\" >TEMPLATE_LIBELLE</label> " +
+            "<input  style=\"width:5em;\" type=\"number\" id=\"TEMPLATE_QTE_ID\" placeholder=\"00.0\" value=\"TEMPLATE_MONTANT\"> <br/>"
 
-var templateForfait="       <div class=\"input-group\">"+
-            "<span class=\"input-group-addon \" id=\"TEMPLATE_ID\" style=\"width: 15em; text-align: left;\">TEMPLATE_LIBELLE &nbsp; TEMPLATE_MONTANT</span>"+
-            "<input id=\"TEMPLATE_QTE_ID\" type=\"number\" class=\"form-control\"  aria-describedby=\"TEMPLATE_ID\">"+    
-            "<span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span></span>"+
-        "</div>";
+/*var templateForfait="       <div class=\"row\">"+
+            "<div class='col-md-8'><span id=\"TEMPLATE_ID\">TEMPLATE_LIBELLE &nbsp; TEMPLATE_MONTANT</span></div>"+
+            "<div class='col-md-2'><input style='width: 2em;' id=\"TEMPLATE_QTE_ID\" type=\"number\" class=\"form-control\"  aria-describedby=\"TEMPLATE_ID\"></div>"+    
+            "<div class='col-md-2'><span><span class=\"glyphicon glyphicon-plus\" aria-hidden=\"true\"></span></span></div>"+
+        "</div>";*/
 
 var labelsForfaits=[];
 var lignesForfait=[];

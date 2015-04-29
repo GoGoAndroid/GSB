@@ -12,19 +12,41 @@ and open the template in the editor.
         <link href="css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                Dropdown
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="changeTitle()">Action</a></li>
-                <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-            </ul>
-        </div>
-
+        <form class="form-inline">
+            <div class="form-group">
+            <label  style="width:15em;" id="basic-addon1" >Forfait étape</label>
+            <input  style="width:5em;" type="number" id="exampleInputName2" placeholder="00.0"> <br/>
+            <label style="width:15em;"> Frais kilométriques </label>
+            <input  style="width:5em;" type="number" placeholder="00.0" ><br/>
+            <label style="width:15em;"> Nuitée hotel </label>
+            <input  style="width:5em;" type="number" placeholder="00.0" ><br/>
+            <label style="width:15em;"> Repas restaurant </label>
+            <input  style="width:5em;" type="number" placeholder="00.0" >
+            </div>
+        </form>
+        
+        <!--<div class="container">
+        <div id="labels_forfait" class="row">
+                    <div class="col-md-4 clearfix"></div>
+                    <div class="col-md-4 clearfix"><input type="number" placeholder="00.0" ></div>
+                    <div class="col-md-4 clearfix"><span ><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"><span  id="basic-addon1" >Frais kilométriques</span></div>
+                    <div class="col-md-4"><input type="number" placeholder="00.0" ></div>
+                    <div class="col-md-4"><span ><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"><span id="basic-addon1" >Nuitée hotel</span></div>
+                    <div class="col-md-4"><input type="number" placeholder="00.0" ></div>
+                    <div class="col-md-4"><span ><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span></div>
+                </div>
+                <div class="row" >
+                    <div class="col-md-4"><span  id="basic-addon1" >Repas restaurant</span></div>
+                    <div class="col-md-4"><input  type="number" placeholder="00.0" ></div>
+                    <div class="col-md-4"><span ><span class="glyphicon glyphicon-euro" aria-hidden="true"></span></span></div>
+                </div>
+        </div>-->
         <script src="js/jquery.min.js"></script>
 
 
