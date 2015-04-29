@@ -11,7 +11,7 @@ function findSelectedLineHorsForfait()
     //lignesHorsForfait
     for (var i = 0; i < lignesHorsForfait.length ; i++) {
             //console.log("check ligne  : " + i);
-                if (lignesHorsForfait[i].id==id){
+                if (lignesHorsForfait[i].id==idLigneHorsForfaitSelectionnee){
                      console.log("selectionLigneHorsForfait : found ligne");
                     //id="date_element_hors_forfait"
                     return lignesHorsForfait[i];
@@ -21,7 +21,9 @@ function findSelectedLineHorsForfait()
 
 function isLineChanged(lignesHorsForfait, montant, date, libelle)
 {
-    return (lignesHorsForfait.libelle == libelle && 
+    console.log("Update : isLineChanged montant"+montant);
+    console.log("Update : valeur originelle montant"+lignesHorsForfait.montant);
+    return !(lignesHorsForfait.libelle == libelle && 
             lignesHorsForfait.montant == montant && 
             lignesHorsForfait.mois == date);
 }
@@ -29,18 +31,20 @@ function isLineChanged(lignesHorsForfait, montant, date, libelle)
 function updateLigneHorsForfait()
 {    
     var ligneHorsForfait = findSelectedLineHorsForfait();
-    var ligneHorsForfaitModifiee = ligneHorsForfait;
+    console.log("Update : ligneTrouvée :"+ligneHorsForfait);
+    var ligneHorsForfaitModifiee = JSON.parse(JSON.stringify(ligneHorsForfait));;
     
     ligneHorsForfaitModifiee.montant = $("#montant_element_hors_forfait").val();
     ligneHorsForfaitModifiee.mois = $("#date_element_hors_forfait").val();
     ligneHorsForfaitModifiee.libelle = $("#libelle_element_hors_forfait").val();
     
     if (isLineChanged(
-        ligneHorsForfaitModifiee,
-        ligneHorsForfaitModifiee.mois,
+        ligneHorsForfait,
         ligneHorsForfaitModifiee.montant, 
+        ligneHorsForfaitModifiee.mois,
         ligneHorsForfaitModifiee.libelle))
     {
+        console.log("Update : linechancged");
         appelAjaxForUpdate(
                 "LigneFraisHorsForfait",
                 idLigneHorsForfaitSelectionnee, 
@@ -49,8 +53,10 @@ function updateLigneHorsForfait()
     }
 }
 
-function miseAJourAffichage()
+function miseAJourAffichage(idRow,ligneHorsForfaitModifiee)
 {
+    console.log("Update : majAffichage");
+    console.log("Update : ligneHorsFraisModifié : "+ligneHorsForfaitModifiee.montant);
     $("#dateLigneHorsFrais_"+idLigneHorsForfaitSelectionnee).html(ligneHorsForfaitModifiee.mois);
     $("#montantLigneHorsFrais_"+idLigneHorsForfaitSelectionnee).html(ligneHorsForfaitModifiee.montant);
     $("#libelleLigneHorsFrais_"+idLigneHorsForfaitSelectionnee).html(ligneHorsForfaitModifiee.libelle);

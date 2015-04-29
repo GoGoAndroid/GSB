@@ -546,7 +546,9 @@ class ArrestDB
 			if (headers_sent() !== true)
 			{
 				header("Access-Control-Allow-Origin: *");
+                                header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT");
 				header(sprintf('Content-Type: application/%s; charset=utf-8', (empty($callback) === true) ? 'json' : 'javascript'));
+                                
 			}
 		}
 
