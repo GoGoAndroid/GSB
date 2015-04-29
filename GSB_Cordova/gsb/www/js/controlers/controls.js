@@ -244,13 +244,13 @@ function buildIdForLigneFrais(i){
      $("#fraisHorsForfait")
     .append($('<tr id="LigneHorsFrais_'+uneLigneHorsFrais.id + '" onclick=selectionLigneHorsForfait('+
         '"'+uneLigneHorsFrais.id+'")>')
-    .append($('<td>')
+    .append($('<td id="dateLigneHorsFrais_'+uneLigneHorsFrais.id+'">')
         .text(uneLigneHorsFrais.date)
         )
-     .append($('<td>')
+    .append($('<td id="libelleLigneHorsFrais_'+uneLigneHorsFrais.id+'">')
         .text(uneLigneHorsFrais.libelle)
         )
-     .append($('<td>')
+    .append($('<td id="montantLigneHorsFrais_'+uneLigneHorsFrais.id+'">')
         .text(uneLigneHorsFrais.montant)
         )
      .append("<td  class='text-right'><"
@@ -275,6 +275,7 @@ function buildIdForLigneFrais(i){
  }
  
  function selectionLigneHorsForfait(id){
+      idLigneHorsForfaitSelectionnee = id;
       console.log("selectionLigneHosrForfait : " + id);
       //lignesHorsForfait
       for (var i = 0; i < lignesHorsForfait.length ; i++) {
