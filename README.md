@@ -6,12 +6,11 @@ Saisie des frais GSB pour les mobiles
 Cordova / Multiplateforme
 
 ## Connaissances
-  - Bootstrap
+  - Bootstrap / HTML / CCS
   - Cordova
-  - Jquery
+  - Jquery / Javascript / Ajax
   - Requêtes asynchrones
   - REST /ArestDB
-  - Ajax
   - Http header : Access-Control-Allow-Origin &  Access-Control-Allow-Methods
   
 
