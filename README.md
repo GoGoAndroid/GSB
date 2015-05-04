@@ -12,6 +12,7 @@ Cordova / Multiplateforme
   - Requêtes asynchrones
   - REST /ArestDB
   - Ajax
+  - Http header : Access-Control-Allow-Origin &  Access-Control-Allow-Methods
   
 
 
