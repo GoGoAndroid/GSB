@@ -232,6 +232,7 @@ function buildIdForLigneFrais(i){
         }
         else {
             console.log(" lireLigneHorsFraisBDD Pas de ligne");
+            ecrirePasDeLigneHorsForfais();
         }
      };
     console.log("LigneFraisHorsForfait appelAjaxForGet : ");
@@ -239,21 +240,26 @@ function buildIdForLigneFrais(i){
     console.log("lireLigneHorsFraisBDD ApresappelAjaxForGet :");
  }
  
+ function ecrirePasDeLigneHorsForfais(){
+      $("#fraisHorsForfait")
+    .append("<small><i >pas de ligne de frais</i></small>");
+ }
+ 
  function ecrireLigneHorsFrais(uneLigneHorsFrais){
      console.log("LigneFraisHorsForfait date : " + uneLigneHorsFrais.date);
      $("#fraisHorsForfait")
     .append($('<tr id="LigneHorsFrais_'+uneLigneHorsFrais.id + '" onclick=selectionLigneHorsForfait('+
         '"'+uneLigneHorsFrais.id+'")>')
-    .append($('<td id="dateLigneHorsFrais_'+uneLigneHorsFrais.id+'">')
+    .append($('<td  id="dateLigneHorsFrais_'+uneLigneHorsFrais.id+'">')
         .text(uneLigneHorsFrais.date)
         )
-    .append($('<td id="libelleLigneHorsFrais_'+uneLigneHorsFrais.id+'">')
-        .text(uneLigneHorsFrais.libelle)
+    .append($('<td  id="libelleLigneHorsFrais_'+uneLigneHorsFrais.id+'">')
+        .html("<div style='width:8em;'><small>"+uneLigneHorsFrais.libelle+"</small></div>")
         )
-    .append($('<td id="montantLigneHorsFrais_'+uneLigneHorsFrais.id+'">')
+    .append($('<td  id="montantLigneHorsFrais_'+uneLigneHorsFrais.id+'">')
         .text(uneLigneHorsFrais.montant)
         )
-     .append("<td  class='text-right'><"
+     .append("<td   class='text-right'><"
             + "button id = 'btnRemoveElementHorsForfaitId_"
             + uneLigneHorsFrais.id + "' class ='btn btn-danger'"
             + "type='button'><span class='glyphicon glyphicon-remove'"
