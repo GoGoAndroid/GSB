@@ -5,4 +5,13 @@
 Saisie des frais GSB pour les mobiles 
 Cordova / Multiplateforme
 
+## Connaissances
+  - Bootstrap
+  - Cordova
+  - Jquery
+  - Requêtes asynchrones
+  - REST /ArestDB
+  - Ajax
+  
+
 
